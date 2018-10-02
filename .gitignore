@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/api/constants.js
+/src/api/constants.js
 
 # testing
 /coverage
