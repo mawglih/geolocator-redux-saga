@@ -1,7 +1,8 @@
 import React from 'react';
+import Location from 'components/Location';
 
 export default () => (
   <div>
-    This is GEO
+    <Location />
   </div>
 );
