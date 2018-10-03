@@ -13,31 +13,31 @@ const getLocation = () => new Promise((resolve, reject) => {
     error => reject(error),
   )
 }); 
-//   const position = {};
-//   if (navigator.geolocation) {
-//     yield delay(5000);
-//     yield navigator.geolocation.getCurrentPosition(
-//       function(position) {
-//         const lat = position.coords.latitude;
-//         const long = position.coords.longitude;
-//         console.log('Latitude: ', lat);
-//         console.log('Longitude: ', long);
-//         console.log('position: ', position);
-//         return position.coords;
-//       },
-//       function errorCallback(error) {
-//           console.log(error);
-//       },
-//       {
-//           maximumAge:Infinity,
-//           timeout:5000
-//       }
-//       location => 
-//     )
-//   } else { 
-//     console.log('Geolocation is not supported by this browser.');
-//   }
-// };
+
+const getAddress = (latitude, longitude) => {
+  return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+
+      var method = 'GET';
+      var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
+      var async = true;
+
+      request.open(method, url, async);
+      request.onreadystatechange = function () {
+          if (request.readyState == 4) {
+              if (request.status == 200) {
+                  var data = JSON.parse(request.responseText);
+                  var address = data.results[0];
+                  resolve(address);
+              }
+              else {
+                  reject(request.status);
+              }
+          }
+      };
+      request.send();
+  });
+};
 
 export function* geoSaga() {
   const location = yield call(getLocation);
