@@ -6,14 +6,16 @@ import {
   GET_LOCATION_SUCCESS,
 } from 'actions';
 
-const getLocation = () => {
+function* getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
+    yield navigator.geolocation.getCurrentPosition(
       function(position) {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
         console.log('Latitude: ', lat);
         console.log('Longitude: ', long);
+        console.log('position: ', position);
+        return position.coords;
       },
       function errorCallback(error) {
           console.log(error);
@@ -30,6 +32,7 @@ const getLocation = () => {
 
 export function* geoSaga() {
   const response = yield call(getLocation);
+  // const data = apply(response);
   console.log('response is :', response);
   yield put(GET_LOCATION_SUCCESS(response));
 }
