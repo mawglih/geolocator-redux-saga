@@ -4,20 +4,20 @@ import {
 } from 'redux-saga/effects';
 
 import {
+  getAddress,
+  getLocation,
+} from 'utilities';
+
+import {
   getLocationSuccess,
 } from 'actions';
-
-const getLocation = () => new Promise((resolve, reject) => {
-  navigator.geolocation.getCurrentPosition(
-    location => resolve(location),
-    error => reject(error),
-  )
-}); 
 
 export function* geoSaga() {
   const location = yield call(getLocation);
   const data = location.coords;
+  const address = yield call(getAddress(data.latitude, data.longitude));
   console.log('response is :', data);
+  console.log('address is: ', address);
   yield put(getLocationSuccess(data));
 }
 
