@@ -3,11 +3,15 @@ import {
   put,
 } from 'redux-saga/effects';
 import {
+  delay,
+} from 'redux-saga';
+import {
   GET_LOCATION_SUCCESS,
 } from 'actions';
 
 function* getLocation() {
   if (navigator.geolocation) {
+    yield delay(5000);
     yield navigator.geolocation.getCurrentPosition(
       function(position) {
         const lat = position.coords.latitude;
