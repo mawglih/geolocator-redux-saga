@@ -12,7 +12,7 @@ export const getLocationSuccess = (payload) => {
   console.log('payload: ', payload);
   return {
     type: GET_LOCATION_SUCCESS,
-    location: payload,
+    payload,
   };
 };
 
