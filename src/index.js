@@ -34,7 +34,7 @@ const store = createStore(reducer,
     )
   )
 );
-// sagaMiddleware.run(watchFetch);
+sagaMiddleware.run(watchFetch);
 
 
 ReactDOM.render(
