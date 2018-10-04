@@ -9,6 +9,7 @@ import {
 import reducer from 'reducers';
 import createSagaMiddleware from 'redux-saga';
 import Geo from 'containers/Geo';
+import { loadGoogleMapApi } from 'api';
 import {
   watchFetch,
 } from 'sagas'; //eslint-disable-next-line
@@ -35,7 +36,7 @@ const store = createStore(reducer,
   )
 );
 sagaMiddleware.run(watchFetch);
-
+loadGoogleMapApi();
 
 ReactDOM.render(
   <Provider store={store}>

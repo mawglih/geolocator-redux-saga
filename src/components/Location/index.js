@@ -1,32 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getLocationStart } from 'actions';
+// import { loadGoogleMapApi } from 'api';
 
 class Location extends Component {
   onGetLocation = () => {
     this.props.getLocationStart();
   }
+  
   render() {
-    // const showPosition = position => {
-    //   const lat = position.coords.latitude;
-    //   const long = position.coords.longitude;
-    //   console.log('Coordinates are: ');
-    //   console.log('Latitude: ', lat);
-    //   console.log('Longitude: ', long);
-    // }
-    // const getLocation = () => {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(showPosition);
-    //   } else { 
-    //     console.log('Geolocation is not supported by this browser.');
-    //   }
-    // };
+    const {
+      latitude,
+      longitude,
+    } = this.props;
     return (
       <div>
         <button onClick={this.onGetLocation}>Get coordinates</button>
+        <div>
+          <p>Our Latitude is {latitude}</p>
+          <p>Our Longitude is {longitude}</p>
+        </div>
+        <hr />
+        <div>
+          <p>Google maps postion is:</p>
+          
+        </div>
       </div>
     );
   }
 }
 
-export default connect(null, { getLocationStart })(Location);
+const mapStateToProps = state => (
+  {
+    latitude: state.location.latitude,
+    longitude: state.location.longitude,
+  }
+);
+
+export default connect(mapStateToProps, { getLocationStart })(Location);

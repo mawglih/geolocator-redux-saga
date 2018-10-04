@@ -12,6 +12,7 @@ export const loadGoogleMapApi = (
 ) => {
   if (window.google) {
     success();
+    console.log('google loaded');
   } else {
     loadScript(URL, err => {
       const callback = err ? error : success;
