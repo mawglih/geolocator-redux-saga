@@ -10,15 +10,15 @@ export const getLocation = () => new Promise((resolve, reject) => {
     );
 });
 
-export const displayLocation = (latitude,longitude) => {
+export const displayLocation = (coords) => {
     axios({
         method:'get',
-        url:`${REVERSE_URL}latlng=${latitude},${longitude}&sensor=true&${GOOGLE_API}`,
+        url:`${REVERSE_URL}latlng=${coords.latitude},${coords.longitude}&sensor=true&${GOOGLE_API}`,
     })
     .then(response => {
         const address = response.data.results[1].formatted_address;
-        console.log('latitude in axios: ', latitude);
-        console.log('longitude in axios: ', longitude);
+        console.log('latitude in axios: ', coords.latitude);
+        console.log('longitude in axios: ', coords.longitude);
         console.log('data is: ', address);
         return address;
     })
