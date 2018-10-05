@@ -1,30 +1,34 @@
 import {
   call,
   put,
-  take,
 } from 'redux-saga/effects';
 // import { delay } from 'redux-saga';
 
 import {
   displayLocation,
   getLocation,
+  filterForAddress,
+  filterForCity,
 } from 'utilities';
 
 import {
   getLocationSuccess,
   getAddressSuccess,
-  getAddressStart,
+  getCitySuccess,
 } from 'actions';
 
 export function* geoSaga() {
   const location = yield call(getLocation);
-  // const data = location.coords;
-  // yield take(getAddressStart);
-  console.log('response in saga is :', location.coords);
   yield put(getLocationSuccess(location.coords));
-  const address = yield call(displayLocation, location.coords);
+  console.log('response in saga is :', location.coords);
+  const data = yield call(displayLocation, location.coords);
+  console.log('data in saga: ', data);
+  const address = yield call(filterForAddress, data);
   console.log('address in saga is: ', address);
   yield put(getAddressSuccess(address));
+  const city = yield call(filterForCity, data);
+  console.log('city in saga: ', city);
+  yield put(getCitySuccess(city));
 }
 
 export default {};

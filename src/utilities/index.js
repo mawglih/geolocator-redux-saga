@@ -10,24 +10,62 @@ export const getLocation = () => new Promise((resolve, reject) => {
     );
 });
 
-export const displayLocation = (coords) => {
+export const displayLocation = (coords) => new Promise((resolve, reject) => {
     axios({
         method:'get',
         url:`${REVERSE_URL}latlng=${coords.latitude},${coords.longitude}&sensor=true&${GOOGLE_API}`,
     })
     .then(response => {
-        const address = response.data.results[1].formatted_address;
+        const address = response.data.results;
+        // [1].formatted_address;
+        resolve(address);
         console.log('latitude in axios: ', coords.latitude);
         console.log('longitude in axios: ', coords.longitude);
         console.log('data is: ', address);
-        return address;
+        console.log('whole response: ', response);
     })
     .catch(error => {
+        reject(error);
         console.log(error);
     })
     .then(function() {
         console.log('axios completed');
     });
-}
+});
+
+export const filterForAddress = (data) => new Promise((resolve) => {
+    const address = data[0].formatted_address;
+    resolve(address);
+});
+
+export const filterForCity = (data) => new Promise((resolve) => {
+    let city = '';
+    data[0].address_components.forEach(element => {
+        if(element.types.find(item => item === 'locality')) {
+            console.log('after find: ', element.long_name);
+            console.log('type of is:', typeof(element.long_name))
+
+        }
+        city = element.long_name;
+        return city;
+    });
+    console.log('city in function is: ', city);
+    resolve(city);
+});
+
+export const filterForState = (data) => new Promise((resolve) => {
+    let state = '';
+    data[0].address_components.forEach(element => {
+        if(element.types.find(item => item === 'administrative_level_1')) {
+            console.log('after find: ', element.short_name);
+            console.log('type of is:', typeof(element.short_name))
+
+        }
+        state = element.short_name;
+        return state;
+    });
+    console.log('city in function is: ', state);
+    resolve(state);
+});
 
 export default {};

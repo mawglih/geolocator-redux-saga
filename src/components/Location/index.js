@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getLocationStart } from 'actions';
-// import { loadGoogleMapApi } from 'api';
+
 
 class Location extends Component {
   onGetLocation = () => {
@@ -12,6 +12,8 @@ class Location extends Component {
     const {
       latitude,
       longitude,
+      address,
+      city,
     } = this.props;
     return (
       <div>
@@ -23,7 +25,11 @@ class Location extends Component {
         <hr />
         <div>
           <p>Google maps postion is:</p>
-          
+          <span>{address}</span>
+        </div>
+        <hr />
+        <div>
+          <h1>Welcome to {city}</h1>
         </div>
       </div>
     );
@@ -34,6 +40,8 @@ const mapStateToProps = state => (
   {
     latitude: state.location.latitude,
     longitude: state.location.longitude,
+    address: state.location.address,
+    city: state.location.city,
   }
 );
 
