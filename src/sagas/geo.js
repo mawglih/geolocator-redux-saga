@@ -9,12 +9,14 @@ import {
   getLocation,
   filterForAddress,
   filterForCity,
+  filterForState,
 } from 'utilities';
 
 import {
   getLocationSuccess,
   getAddressSuccess,
   getCitySuccess,
+  getStateSuccess,
 } from 'actions';
 
 export function* geoSaga() {
@@ -29,6 +31,9 @@ export function* geoSaga() {
   const city = yield call(filterForCity, data);
   console.log('city in saga: ', city);
   yield put(getCitySuccess(city));
+  const state = yield call(filterForState, data);
+  yield console.log('state in saga: ', state);
+  yield put(getStateSuccess(state));
 }
 
 export default {};

@@ -13,9 +13,10 @@ export const getLocation = () => new Promise((resolve, reject) => {
 export const displayLocation = (coords) => new Promise((resolve, reject) => {
     axios({
         method:'get',
-        url:`${REVERSE_URL}latlng=${coords.latitude},${coords.longitude}&sensor=true&${GOOGLE_API}`,
+        url:`${REVERSE_URL}latlng=${coords.latitude},${coords.longitude}&sensor=true&key=${GOOGLE_API}`,
     })
     .then(response => {
+        console.log(`${REVERSE_URL}latlng=${coords.latitude},${coords.longitude}&sensor=true&key=${GOOGLE_API}`);
         const address = response.data.results;
         // [1].formatted_address;
         resolve(address);
@@ -44,28 +45,28 @@ export const filterForCity = (data) => new Promise((resolve) => {
         if(element.types.find(item => item === 'locality')) {
             console.log('after find: ', element.long_name);
             console.log('type of is:', typeof(element.long_name))
-
+            city = element.long_name;
+            resolve(city);
         }
-        city = element.long_name;
-        return city;
+        
     });
     console.log('city in function is: ', city);
-    resolve(city);
+    
 });
 
 export const filterForState = (data) => new Promise((resolve) => {
-    let state = '';
+    let locality = '';
     data[0].address_components.forEach(element => {
-        if(element.types.find(item => item === 'administrative_level_1')) {
+        if(element.types.find(item => item === 'administrative_area_level_1')) {
             console.log('after find: ', element.short_name);
-            console.log('type of is:', typeof(element.short_name))
-
+            console.log('type of is:', typeof(element.short_name));
+            locality = element.short_name;
+            resolve(locality);
         }
-        state = element.short_name;
-        return state;
+        
     });
-    console.log('city in function is: ', state);
-    resolve(state);
+    console.log('city in function is: ', locality);
+    
 });
 
 export default {};
