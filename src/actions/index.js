@@ -10,6 +10,9 @@ export const GET_CITY_FAILURE = 'GET_CITY_FAILURE';
 export const GET_STATE_START = 'GET_STATE_START';
 export const GET_STATE_SUCCESS = 'GET_STATE_SUCCESS';
 export const GET_STATE_FAILURE = 'GET_STATE_FAILURE';
+export const GET_PLACE_START = 'GET_PLACE_START';
+export const GET_PLACE_SUCCESS = 'GET_PLACE_SUCCESS';
+export const GET_PLACE_FAILURE = 'GET_PLACE_FAILURE';
 
 export const getLocationStart = () => {
   return {
@@ -95,6 +98,28 @@ export const getStateSuccess = (payload) => {
 export const getStateFailure = (error) => {
   return {
     type: GET_STATE_SUCCESS,
+    payload: error,
+  };
+};
+
+export const getPlaceStart = (payload) => {
+  return {
+    type: GET_PLACE_START,
+    payload,
+  };
+};
+
+export const getPlaceSuccess = (payload) => {
+  console.log('Place in action: ', payload);
+  return {
+    type: GET_PLACE_SUCCESS,
+    payload,
+  };
+};
+
+export const getPlaceFailure = (error) => {
+  return {
+    type: GET_PLACE_SUCCESS,
     payload: error,
   };
 };

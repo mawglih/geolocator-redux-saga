@@ -3,6 +3,7 @@ import {
   GET_ADDRESS_SUCCESS,
   GET_CITY_SUCCESS,
   GET_STATE_SUCCESS,
+  GET_PLACE_SUCCESS,
 } from 'actions';
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
   address: '',
   city: '',
   locality: '',
+  place: {},
 };
 
 export default (state = INITIAL_STATE, {type, payload}) => {
@@ -30,12 +32,17 @@ export default (state = INITIAL_STATE, {type, payload}) => {
       return {
         ...state,
         city: payload,
-      }
+      };
     case GET_STATE_SUCCESS:
       return {
         ...state,
         locality: payload,
-      }
+      };
+      case GET_PLACE_SUCCESS:
+      return {
+        ...state,
+        place: payload,
+      };
     default:
       return state;
   }

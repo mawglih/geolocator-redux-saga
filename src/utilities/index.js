@@ -69,4 +69,24 @@ export const filterForState = (data) => new Promise((resolve) => {
     
 });
 
+export const filterForPlace = data => new Promise((resolve, reject) => {
+    let place = {};
+    try {
+        data[0].address_components.forEach(element => {
+            if(element.types.find(item => item === 'locality')) {
+                place.city = element.long_name;
+            } else if (element.types.find(item => item === 'administrative_area_level_1')) {
+                place.state = element.short_name;
+            } else if (element.types.find(item => item === 'country')) {
+                place.country = element.long_name;
+            }
+            console.log('place in utility: ', place);
+            resolve(place);
+        });
+    } catch (error) {
+        console.log('error occured: ', error);
+        reject(error);
+    }
+});
+
 export default {};

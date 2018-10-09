@@ -7,14 +7,16 @@ class Location extends Component {
   onGetLocation = () => {
     this.props.getLocationStart();
   }
+  componentDidMount() {
+    this.props.getLocationStart();
+  }
   
   render() {
     const {
       latitude,
       longitude,
       address,
-      city,
-      locality,
+      place,
     } = this.props;
     return (
       <div>
@@ -30,7 +32,21 @@ class Location extends Component {
         </div>
         <hr />
         <div>
-          <h1>Welcome to {city}, {locality}</h1>
+          <h1>
+            {'Welcome to '} 
+            <span>
+              {place.city}
+            </span>
+            <span>
+              {place.city ? ', ' : null }
+            </span>
+            <span>
+              {place.state ? place.state : null}
+            </span>
+            <span>
+              {place.state ? null : place.country}
+            </span>
+          </h1>
         </div>
       </div>
     );
@@ -43,7 +59,7 @@ const mapStateToProps = state => (
     longitude: state.location.longitude,
     address: state.location.address,
     city: state.location.city,
-    locality: state.location.locality,
+    place: state.location.place,
   }
 );
 

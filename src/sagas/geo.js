@@ -2,21 +2,20 @@ import {
   call,
   put,
 } from 'redux-saga/effects';
-// import { delay } from 'redux-saga';
-
 import {
   displayLocation,
   getLocation,
   filterForAddress,
   filterForCity,
   filterForState,
+  filterForPlace,
 } from 'utilities';
-
 import {
   getLocationSuccess,
   getAddressSuccess,
   getCitySuccess,
   getStateSuccess,
+  getPlaceSuccess,
 } from 'actions';
 
 export function* geoSaga() {
@@ -34,6 +33,9 @@ export function* geoSaga() {
   const state = yield call(filterForState, data);
   yield console.log('state in saga: ', state);
   yield put(getStateSuccess(state));
+  const place = yield call(filterForPlace, data);
+  yield console.log('place in saga: ', place);
+  yield put(getPlaceSuccess(place));
 }
 
 export default {};
