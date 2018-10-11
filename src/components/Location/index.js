@@ -7,9 +7,9 @@ class Location extends Component {
   onGetLocation = () => {
     this.props.getLocationStart();
   }
-  componentDidMount() {
-    this.props.getLocationStart();
-  }
+  // componentDidMount() {
+  //   this.props.getLocationStart();
+  // }
   
   render() {
     const {

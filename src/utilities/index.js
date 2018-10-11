@@ -10,6 +10,28 @@ export const getLocation = () => new Promise((resolve, reject) => {
     );
 });
 
+const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+  
+  export const Coord = (pos) => {
+    let crd = pos.coords;
+  
+    console.log('Your current position is:');
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+    return crd;
+  }
+  
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+export const getLocation2 = () => navigator.geolocation.getCurrentPosition(Coord, error, options);
+
+
 export const displayLocation = (coords) => new Promise((resolve, reject) => {
     axios({
         method:'get',
