@@ -1,15 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLocationStart } from 'actions';
-
+import './Location.css';
 
 class Location extends Component {
-  onGetLocation = () => {
-    this.props.getLocationStart();
-  }
-  // componentDidMount() {
-  //   this.props.getLocationStart();
-  // }
   
   render() {
     const {
@@ -17,10 +11,11 @@ class Location extends Component {
       longitude,
       address,
       place,
+      getLocationStart,
     } = this.props;
     return (
-      <div>
-        <button onClick={this.onGetLocation}>Get coordinates</button>
+      <div className="main">
+        <button onClick={getLocationStart} className="coordinates">Get coordinates</button>
         <div>
           <p>Our Latitude is {latitude}</p>
           <p>Our Longitude is {longitude}</p>
